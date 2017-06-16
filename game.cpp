@@ -10,7 +10,7 @@
 using namespace std;
 
 Game::Game(QWidget *parent):QWidget(parent){
-    QString wd = "/Users/Elliot/finalproj/";
+    QString wd = ":/"; //"/Users/Elliot/finalproj/";
     setFocusPolicy(Qt::StrongFocus);
     try{ //account for exceptions (RAII)
         player = new Enemy(wd + "alienhead.png",1);
