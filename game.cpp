@@ -62,6 +62,39 @@ Game::Game(QWidget *parent):QWidget(parent){
     setPalette(QPalette(Qt::GlobalColor(Qt::black)));
     setAutoFillBackground(true);
 }
+Game::Game(const Game&& g){
+    player = std::move(g.player);
+    for(int i = 0; i < 40; i++){
+        playerammo[i] = std::move(g.playerammo[i]);
+    }
+    playerhaterboss = std::move(g.playerhaterboss);
+
+    for(int i = 0; i < 10; i++){
+        playerhater[i] = std::move(g.playerhater[i]);
+        playerhatertwo[i] = std::move(g.playerhatertwo[i]);
+        enemyammo[i] = std::move(g.enemyammo[i]);
+        enemyammotwo[i] = std::move(g.enemyammotwo[i]);
+        bossammo[i] = std::move(g.bossammo[i]);
+    }
+    gameOver = std::move(g.gameOver);
+    gameWon = std::move(g.gameWon);
+    gameWon = std::move(g.gameInst);
+    gameStarted = std::move(g.gameStarted);
+    paused = std::move(g.paused);
+    played = std::move(g.played);
+    shotcount = std::move(g.shotcount);
+    hitcount = std::move(g.hitcount);
+    accuracy = std::move(g.accuracy);
+    xShooter = std::move(g.xShooter);
+    yShooter = std::move(g.yShooter);
+    timerId = std::move(g.timerId);
+    score = std::move(g.score);
+    lives = std::move(g.lives);
+    timerIdShip = std::move(g.timerIdShip);
+    timerIdShip = std::move(g.timerIdShiptwo);
+    timerIdShip = std::move(g.timerIdShipboss);
+}
+
 Game& Game::operator=(const Game& g){
     delete player;
     this->player = new Enemy(*(g.player));
@@ -78,6 +111,23 @@ Game& Game::operator=(const Game& g){
         enemyammotwo[i] = new Weapon(*(g.enemyammotwo[i]));
         bossammo[i] = new Weapon(*(g.bossammo[i]));
     }
+    gameOver = g.gameOver;
+    gameWon = g.gameWon;
+    gameWon = g.gameInst;
+    gameStarted = g.gameStarted;
+    paused = g.paused;
+    played = g.played;
+    shotcount = g.shotcount;
+    hitcount = g.hitcount;
+    accuracy = g.accuracy;
+    xShooter = g.xShooter;
+    yShooter = g.yShooter;
+    timerId = g.timerId;
+    score = g.score;
+    lives = g.lives;
+    timerIdShip = g.timerIdShip;
+    timerIdShip = g.timerIdShiptwo;
+    timerIdShip = g.timerIdShipboss;
     return *this;
 }
 Game::~Game(){ //follows RAII: heap memory is deleted when game goes out of scope
