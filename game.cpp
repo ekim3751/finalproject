@@ -50,6 +50,7 @@ Game::Game(QWidget *parent):QWidget(parent){
     gameWon = false;
     paused = false;
     gameStarted = false;
+    gameInst = true;
     timerIdShip = 0;
     timerIdShiptwo = 0;
     timerIdShipboss = 0;
@@ -117,6 +118,16 @@ void Game::paintEvent(QPaintEvent *event){
         int textWidth = fm.width("Victory!");
         painter.drawText((w/2)-textWidth/2, h/2, "Victory!");
     }
+    else if(gameInst)
+    {
+        QFont font("Courier", 15, QFont::DemiBold);
+        QFontMetrics fm(font);
+        painter.setFont(font);
+        int h = 350;//height();
+        int w = 600;//width();
+        int textWidth = fm.width("Space bar to start/fire \n Arrow keys to move");
+        painter.drawText((w/2)-textWidth/2, h/2, "Space bar to start/fire \n Arrow keys to move");
+    }
     else
     {
         drawStuff<Enemy,&Enemy::getArea,&Enemy::getImage,&Enemy::isActive>(player);
@@ -166,6 +177,8 @@ void Game::timerEvent(QTimerEvent *event){
     }
     if (playerhaterboss->isActive() == true)
     {
+        if(playerhaterboss->getArea().x() < 30){playerhaterboss->setStrafe(1);
+        } else if(playerhaterboss->getArea().x() > 550){playerhaterboss->setStrafe(0);}
         playerhaterboss->moveStrafe();
     }
     if(timerIdShip == 100){ //which
@@ -265,6 +278,7 @@ void Game::keyPressEvent(QKeyEvent *event){
 void Game::startGame()
 {
     if(gameStarted == false){
+        gameInst = false;
         player->reset();
         gameOver = false;
         gameWon = false;
