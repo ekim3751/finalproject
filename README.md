@@ -1,11 +1,10 @@
 # finalproject
 Implemented a version of Galaga using Qt and C++ for my PIC 10C final project. 
+NOTE: user must update "wd" QString object in game.cpp to the directory where the images were downloaded to. 
 
 Controls: 
   Space bar: Fire OR start the game.
   Direction keys: Maneuver ship.
-  
-NOTE: user must update "wd" QString object in game.cpp to the directory where the images were downloaded to. 
   
 The structure was adapted from https://github.com/jjw1707/Space-Invaders-Remixed.git (similar display and some class member variables). Nonetheless, there are key differences between the two (similar to the differences between Galaga and Space Invaders), with mine including concepts from PIC 10C. Here are some noteable differences:
 
