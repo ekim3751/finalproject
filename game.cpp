@@ -10,22 +10,22 @@
 using namespace std;
 
 Game::Game(QWidget *parent):QWidget(parent){
-
+    QString wd = "/Users/Elliot/finalproj/";
     setFocusPolicy(Qt::StrongFocus);
     try{ //account for exceptions (RAII)
-        player = new Enemy("/Users/Elliot/finalproj/alienhead.png",1);
+        player = new Enemy(wd + "alienhead.png",1);
         player->setActive(true);
         for(int i = 0; i < 40; i++){
-            playerammo[i] = new Weapon("/Users/Elliot/finalproj/bullet.png",0,-2);
+            playerammo[i] = new Weapon(wd + "bullet.png",0,-2);
         }
-        playerhaterboss = new Enemy("/Users/Elliot/finalproj/alienboss.png",4);
+        playerhaterboss = new Enemy(wd + "alienboss.png",4);
 
         for(int i = 0; i < 10; i++){
-            playerhater[i] = new Enemy("/Users/Elliot/finalproj/alien.png",2);
-            playerhatertwo[i] = new Enemy("/Users/Elliot/finalproj/alien2.png",3);
-            enemyammo[i] = new Weapon("/Users/Elliot/finalproj/missile.png",0,2);
-            enemyammotwo[i] = new Weapon("/Users/Elliot/finalproj/homing.png",0,3);
-            bossammo[i] = new Weapon("/Users/Elliot/finalproj/bomb.png",0,3);
+            playerhater[i] = new Enemy(wd + "alien.png",2);
+            playerhatertwo[i] = new Enemy(wd + "alien2.png",3);
+            enemyammo[i] = new Weapon(wd + "missile.png",0,2);
+            enemyammotwo[i] = new Weapon(wd + "homing.png",0,3);
+            bossammo[i] = new Weapon(wd + "bomb.png",0,3);
         }
     }
     catch( std::exception &e ){
@@ -66,7 +66,6 @@ Game& Game::operator=(const Game& g){
     this->player = new Enemy(*(g.player));
     for(int i = 0; i < 40; i++){
         delete playerammo[i];
-        //Enemy *temp = g.playerammo[i];
         this->playerammo[i] = new Weapon(*(g.playerammo[i]));
     }
     playerhaterboss = new Enemy(*(playerhaterboss));
@@ -348,13 +347,10 @@ void Game::checkCollision()
                         cout<<"Score increased..."<<endl;
                         playerhater[i]->setDestroyed(true);
                         playerhater[i]->reset();
-
-                        //add score
                         score++;
                         emit scoreChanged(score);
 
                     }
-                    //alien->resetState();		//remove later...
                 }
 
                 if (playerammo[j]->getRect().intersects(playerhatertwo[i]->getArea()) == true && playerammo[j]->isActive() == true && playerhatertwo[i]->isDestroyed() == false)
@@ -383,7 +379,6 @@ void Game::checkCollision()
                         cout<<"Score increased..."<<endl;
                         playerhaterboss->setDestroyed(true);
                         playerhaterboss->reset();
-                                //add score
                         score++;
 
                         emit scoreChanged(score);
