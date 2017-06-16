@@ -29,7 +29,7 @@ Enemy::Enemy(QString filename, int type)
     case 4:
     {
         health = 30;
-        dx = 0;
+        dx = -1;
         dy = 0;
     }
         break;

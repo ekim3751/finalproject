@@ -15,16 +15,17 @@ class Game : public QWidget
 
 public:
     Game(QWidget *parent = 0);
+    Game(const Game&& g);
     Game& operator=(const Game& g);
 
     ~Game(); //follows RAII
 
 protected:
-    void paintEvent(QPaintEvent *event);
-    void timerEvent(QTimerEvent *event);
-    void keyPressEvent(QKeyEvent *event);
-    void victory();
-    void checkCollision();
+    void paintEvent(QPaintEvent *event); //draws stuff
+    void timerEvent(QTimerEvent *event); //updates every 10ms
+    void keyPressEvent(QKeyEvent *event); //records user input
+    void victory(); //called when boss dies
+    void checkCollision(); //records collisions (ships, bullets)
     template<typename P,QRect(P::*func)(),QImage(P::*functwo)(),bool(P::*functhree)()>
     void drawStuff(P* object){
         if((object->*functhree)() == true){ painter.drawImage((object->*func)(),(object->*functwo)());}
@@ -60,7 +61,7 @@ private:
     int timerIdShiptwo;
     int timerIdShipboss;
     Enemy *player;
-    Weapon *playerammo[40];
+    Weapon *playerammo[40]; //array of pointers
     Enemy *playerhater[10];
     Enemy *playerhatertwo[10];
     Enemy *playerhaterboss;
@@ -69,6 +70,7 @@ private:
     Weapon *bossammo[10];
     bool gameOver;
     bool gameWon;
+    bool gameInst;
     bool gameStarted;
     bool paused;
 };

@@ -22,7 +22,7 @@ public:
     void moveLeft(int l);
     void moveRight(int r);
     void moveStrafe();
-    void setStrafe(int dir);
+    void setStrafe(int dir);    
     bool isActive();
     void setActive(bool check);
     bool isDestroyed();
