@@ -18,7 +18,7 @@ All of the above required that I write multiple extra functions and modify other
 Although mostly unused, I added RAII features to each class (copy constructor, assignment operator), and made sure RAII was correctly implemented in the big three (copy constructor, assignment operator, destructor). 
 I templated a couple of functions in the Game class, and used them effectively in combination with lambda functions and the generic algorithm for_each (which is also templated). 
 I used another lambda function to calculate accuracy. 
-
+Although unused, I added a Game move constructor for r value references that could technically be used in combination with the copy assignment operator (saves memory allocation).
 
   
   
